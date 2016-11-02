@@ -17,6 +17,7 @@ def get_input():
         id = str(sys.argv[1]).rstrip('\n')
         if valid_spotify_id(id):
             return [id]
+        print('Argument given in command-line was not a valid spotify id.')
         return None
 
     lines = sys.stdin
