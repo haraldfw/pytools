@@ -1,11 +1,11 @@
 # coding: utf-8
 import json
-import sys
-
 import re
+import sys
 import urllib.request
 
 __author__ = 'Harald Floor Wilhelmsen'
+
 
 def valid_spotify_id(id):
     pattern = r'^spotify:(track|album|artist):[a-zA-Z0-9]*$'
@@ -13,10 +13,6 @@ def valid_spotify_id(id):
 
 
 def get_input():
-    """
-    Returns the input from the user. Will be of the format of a spotify id-string.
-    :return: The spotify id-string. None if stdin or argv is empty or of wrong format.
-    """
     if len(sys.argv) > 1:
         id = str(sys.argv[1]).rstrip('\n')
         if valid_spotify_id(id):
@@ -41,23 +37,23 @@ def trunc_artist_list(artist_list):
 
 def get_track_info(track_id):
     response = urllib.request.urlopen('https://api.spotify.com/v1/tracks/{}'.format(track_id)).read().decode('utf-8')
-    response =  json.loads(response)
-    title = response['name']
+    response = json.loads(response)
+    track_title = response['name']
     artists = trunc_artist_list(response['artists'])
-    return '; '.join([title, artists])
+    return ' | '.join([track_title, artists])
 
 
 def get_album_info(album_id):
     response = urllib.request.urlopen('https://api.spotify.com/v1/albums/{}'.format(album_id)).read().decode('utf-8')
-    response =  json.loads(response)
-    title = response['name']
+    response = json.loads(response)
+    album_name = response['name']
     artists = trunc_artist_list(response['artists'])
-    return '; '.join([title, artists])
+    return '; '.join([album_name, artists])
 
 
 def get_artist_info(artist_id):
     response = urllib.request.urlopen('https://api.spotify.com/v1/artists/{}'.format(artist_id)).read().decode('utf-8')
-    response =  json.loads(response)
+    response = json.loads(response)
     return response['name']
 
 
@@ -94,9 +90,6 @@ def main():
     ids = get_input()
     if ids:
         print(get_spotify_info(ids))
-        # for id in ids:
-        #     if valid_spotify_id(id):
-        #         print('spotify id: ' + id)
 
 
 main()
