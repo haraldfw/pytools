@@ -49,7 +49,7 @@ def get_album_info(album_id):
     response = json.loads(response)
     album_name = response['name']
     artists = trunc_artist_list(response['artists'])
-    return '; '.join([album_name, artists])
+    return ' | '.join([album_name, artists])
 
 
 def get_artist_info(artist_id):
