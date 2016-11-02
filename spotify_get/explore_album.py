@@ -15,7 +15,7 @@ def join_artist_list(artist_list):
 
 
 def valid_spotify_id(id):
-    pattern = r'^spotify:(track|album|artist):[a-zA-Z0-9]*$'
+    pattern = r'^spotify:album:[a-zA-Z0-9]*$'
     return re.match(pattern, id)
 
 
