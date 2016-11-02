@@ -1,12 +1,14 @@
 # coding: utf-8
+import json
 import sys
 
 import re
+import urllib.request
 
 __author__ = 'Harald Floor Wilhelmsen'
 
 def valid_spotify_id(id):
-    pattern = '^spotify:(track|album|artist):[a-zA-Z0-9]*$'
+    pattern = r'^spotify:(track|album|artist):[a-zA-Z0-9]*$'
     return re.match(pattern, id)
 
 
@@ -24,25 +26,77 @@ def get_input():
     lines = sys.stdin
     ids = []
     for line in lines:
-        line = str(line)
-        line = line.rstrip('\n')
+        line = str(line).rstrip('\n')
         if valid_spotify_id(line):
             ids.append(line)
+    return ids
 
-    return None
+
+def trunc_artist_list(artist_list):
+    output = []
+    for artist in artist_list:
+        output.append(artist['name'])
+    return ', '.join(output)
 
 
-def call_spotify(ids):
+def get_track_info(track_id):
+    response = urllib.request.urlopen('https://api.spotify.com/v1/tracks/{}'.format(track_id)).read().decode('utf-8')
+    response =  json.loads(response)
+    title = response['name']
+    artists = trunc_artist_list(response['artists'])
+    return '; '.join([title, artists])
+
+
+def get_album_info(album_id):
+    response = urllib.request.urlopen('https://api.spotify.com/v1/albums/{}'.format(album_id)).read().decode('utf-8')
+    response =  json.loads(response)
+    title = response['name']
+    artists = trunc_artist_list(response['artists'])
+    return '; '.join([title, artists])
+
+
+def get_artist_info(artist_id):
+    response = urllib.request.urlopen('https://api.spotify.com/v1/artists/{}'.format(artist_id)).read().decode('utf-8')
+    response =  json.loads(response)
+    return response['name']
+
+
+def get_info(id):
+    splits = str(id).split(':')
+    type = splits[1]
+    id = splits[2]
+    if type == 'track':
+        return get_track_info(id)
+
+    if type == 'album':
+        return get_album_info(id)
+
+    if type == 'artist':
+        return get_artist_info(id)
+
+    return ''
+
+
+def get_spotify_info(ids):
+    output = []
     for id in ids:
-        splits = str(id).split(':')
-
+        id = str(id).rstrip('\n')
+        if valid_spotify_id(id):
+            output.append(' '.join([id, get_info(id)]))
+        else:
+            output.append(id)
+    if not output:
+        return None
+    return '\n'.join(output)
 
 
 def main():
-    id_ar = get_input()
-    if id_ar:
-        print('spotify id: ' + id_ar[0])
-        print('match: {}'.format(valid_spotify_id(id_ar[0])))
+    ids = get_input()
+    if ids:
+        print(get_spotify_info(ids))
+        # for id in ids:
+        #     if valid_spotify_id(id):
+        #         print('spotify id: ' + id)
 
 
 main()
