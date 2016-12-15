@@ -20,7 +20,8 @@ This command would take the single id given as an argument and print info for th
 python3 spotify_get.py spotify:track:4H1Q1P3B7k1p1MK6pkWCH6
 ```
 
-This command takes all the output from the mpcs search-function and pipes it through the script:
+This command takes all the output from the mpc search-function and pipes it through the script.
+Printing info for all the hits in the search:
 ```bash
 mpc search artist 'zeds dead' | python3 spotify_get.py
 ```
