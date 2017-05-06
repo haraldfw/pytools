@@ -50,18 +50,28 @@ def parse_args():
     return args
 
 
+def help():
+    print('Gets recommendations from spotify based on tracks from playlist.\n\n'
+          'usage: python3 radioq.py <start_index> <amount>\n\n'
+          'Flags:\n'
+          '\t-l, --loop\n\t\tEnable looping. Enabling this will make the script go through the playlist and get '
+          '<amount> recommended tracks for every chunk of 5 tracks. This is time-consuming, and might spam '
+          'your queue.\n'
+          '\t-s, --start-index\n\t\tSpecify where to start getting seed-tracks from the playlist. Default=0.\n'
+          '\t-amount, --amount\n\t\tSpecify amount of recommended tracks to get. Default=20 min=1 max=100.\n'
+          '\t-h, --help\n\t\tOutputs this information.\n')
+
+
 def main():
-    args = parse_args()
+    try:
+        args = parse_args()
+    except ValueError:
+        print('Something went wrong when parsing your args.\nFor help: python3')
+        help()
+        return
 
     if 'help' in args:
-        print('Gets recommendations from spotify based on tracks from playlist.\n\n'
-              'usage: python3 radioq.py <start_index> <amount>\n\n'
-              'Flags:\n'
-              '\t-l \n\t\tEnable looping. Enabling this will make the script go through the playlist and get '
-              '<amount> recommended tracks for every chunk of 5 tracks. This is time-consuming, and might spam '
-              'your queue\n'
-              '\t-s \n\t\tSpecify where to start getting seed-tracks from the playlist. Default=0.\n'
-              '\t-n \n\t\tSpecify amount of recommended tracks to get. Default=20 min=1 max=100.\n')
+        help()
         return
 
     start_index = 0
