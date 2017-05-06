@@ -43,3 +43,10 @@ def get_seeded_tracks(seed_tracks, amount=20, spotify=None):
     for hit in spotify.recommendations(seed_tracks=seed_tracks, limit=amount, country='NO')['tracks']:
         tracks.append(hit['uri'])
     return tracks
+
+
+def spotify_open_urls_to_file(urls):
+    ids = []
+    for line in urls:
+        ids.append(line.replace('https://open.spotify.com', 'spotify').replace('/', ':'))
+    return ids
