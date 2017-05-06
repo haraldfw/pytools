@@ -25,10 +25,13 @@ def get_seeds_from_playlist(start_index=0, amount=5):
         amount = 5
     playlist = subprocess.getoutput('mpc playlist -f %file%').split('\n')
     tracks = []
-    for index in range(start_index, start_index + amount):
-        if index + 1 > len(playlist):
+    index = start_index
+    while True:
+        if index > len(playlist) - 1 or index > start_index + amount:
             break
-        tracks.append(playlist[index])
+        file = playlist[index]
+        if file.find('spotify:track:') > -1:
+            tracks.append(file)
     return tracks
 
 
