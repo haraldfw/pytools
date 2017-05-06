@@ -20,12 +20,6 @@ def get_spotify():
     return spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 
-def get_spotify_test():
-    client_credentials_manager = SpotifyClientCredentials(client_id='1cca5549d1b84fc2aca1a6c3650e7d07',
-                                                          client_secret='814c42749096465d9245e15bdcbea20f')
-    return spotipy.Spotify(client_credentials_manager=client_credentials_manager)
-
-
 def get_seeds_from_playlist(start_index=0, amount=5):
     if amount > 5:  # 5 is hard limit for track-seeds
         amount = 5
