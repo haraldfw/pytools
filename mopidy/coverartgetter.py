@@ -28,7 +28,7 @@ def update_now_playing(trackid):
         download_art(trackid)
     with open(nowplaying_id_file_path, 'r') as trackid_file:
         nowplaying = trackid_file.readline().replace('\n', '').strip()
-        #print(nowplaying)
+        # print(nowplaying)
     with open(nowplaying_id_file_path, 'w') as trackid_file:
         if not nowplaying or trackid not in nowplaying:
             trackid_file.write(trackid)

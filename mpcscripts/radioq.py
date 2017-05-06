@@ -2,8 +2,8 @@ import sys
 
 import requests
 
-from spottylib import get_seeded_tracks
 from mpclib import get_playlist_files
+from spottylib import get_seeded_tracks
 
 
 def radioq(start_index, amount):
@@ -92,6 +92,7 @@ def main():
         return
 
     print('\n'.join(tracks))
+
 
 if __name__ == '__main__':
     main()
