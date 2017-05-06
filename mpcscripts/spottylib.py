@@ -36,6 +36,6 @@ def get_seeded_tracks(seed_tracks, amount=20, spotify=None):
     if not spotify:
         spotify = get_spotify()
     tracks = []
-    for hit in spotify.recommendations(seed_tracks=seed_tracks, limit=amount)['tracks']:
+    for hit in spotify.recommendations(seed_tracks=seed_tracks, limit=amount, country='NO')['tracks']:
         tracks.append(hit['uri'])
     return tracks
