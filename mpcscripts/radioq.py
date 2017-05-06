@@ -53,7 +53,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    if args['help']:
+    if 'help' in args:
         print('Gets recommendations from spotify based on tracks from playlist.\n\n'
               'usage: python3 radioq.py <start_index> <amount>\n\n'
               'Flags:\n'
@@ -66,14 +66,14 @@ def main():
 
     start_index = 0
     amount = 20
-    if args['start-index']:
+    if 'start-index' in args:
         start_index = args['start-index']
 
-    if args['amount']:
+    if 'amount' in args:
         amount = args['amount']
 
     try:
-        if args['loop']:
+        if 'loop' in args:
             tracks = radioq_loop(start_index, amount)
         else:
             tracks = radioq(start_index, amount)
