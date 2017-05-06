@@ -11,6 +11,7 @@ if __name__ == '__main__':
                   'usage: python3 radioq.py <start_index> <amount>\n\n'
                   'start_index: where to start getting seed-tracks from the playlist.\n'
                   'amount: how many tracks from the playlist (starting at start_index) to use as seeds.')
+            sys.exit()
         start_index = int(sys.argv[1])
     if len(sys.argv) > 2:
         amount = int(sys.argv[2])
