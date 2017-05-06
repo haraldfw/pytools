@@ -32,6 +32,7 @@ def get_seeds_from_playlist(start_index=0, amount=5):
         file = playlist[index]
         if file.find('spotify:track:') > -1:
             tracks.append(file)
+        index += 1
     return tracks
 
 
