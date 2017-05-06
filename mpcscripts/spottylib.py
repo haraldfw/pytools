@@ -27,7 +27,7 @@ def get_seeds_from_playlist(start_index=0, amount=5):
     tracks = []
     index = start_index
     while True:
-        if index > len(playlist) - 1 or index > start_index + amount:
+        if index > len(playlist) - 1 or len(tracks) >= amount:
             break
         file = playlist[index]
         if file.find('spotify:track:') > -1:
