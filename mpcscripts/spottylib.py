@@ -7,9 +7,9 @@ from spotipy.oauth2 import SpotifyClientCredentials
 def get_keys():
     home_path = '/home/staff/drift/'
     with open(home_path + 'spotify.id', 'r') as file:
-        client_id = file.read()
+        client_id = file.readline().rstrip('\n')
     with open(home_path + 'spotify.secret', 'r') as file:
-        client_secret = file.read()
+        client_secret = file.readline().rstrip('\n')
     return client_id, client_secret
 
 
