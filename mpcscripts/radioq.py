@@ -5,7 +5,7 @@ from spottylib import get_seeds_from_playlist, get_seeded_tracks
 
 def main():
     start_index = 0
-    amount = 5
+    amount = 20
     if len(sys.argv) > 1:
         if str(sys.argv[1]).find('h') > -1:
             print('Gets recommendations from spotify based on tracks from playlist.\n\n'
