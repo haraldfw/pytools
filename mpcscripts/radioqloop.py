@@ -10,7 +10,7 @@ def main():
     if len(sys.argv) > 1:
         if str(sys.argv[1]).find('h') > -1:
             print('Gets recommendations from spotify based on tracks from playlist.\n'
-                  'Loops trough the playlist and gets [amount] recommended tracks for every chunk of 5 songs after '
+                  'Goes trough the playlist and gets <amount> recommended tracks for every chunk of 5 songs after '
                   '<start_index>.\n\n'
                   'usage: python3 radioqloop.py <start_index> <amount>\n\n'
                   'Optional arguments:\n'
