@@ -29,6 +29,7 @@ def get_seeds_from_playlist(start_index=0, amount=5):
         if index > len(playlist):
             break
         tracks.append(playlist[index])
+    return tracks
 
 
 def get_seeded_tracks(seed_tracks, amount=20, spotify=None):
