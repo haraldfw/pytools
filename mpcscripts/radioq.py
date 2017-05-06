@@ -1,6 +1,6 @@
 import sys
 
-from spotify.spottylib import get_seeds_from_playlist, get_seeded_tracks
+from spottylib import get_seeds_from_playlist, get_seeded_tracks
 
 if __name__ == '__main__':
     start_index = 0
