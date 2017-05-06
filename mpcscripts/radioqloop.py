@@ -25,9 +25,9 @@ def main():
     tracks = []
     while True:
         seeds = get_playlist_files(5, start_index)
-        t = get_seeded_tracks(seeds, amount)
-        if not t:
+        if not seeds:
             break
+        t = get_seeded_tracks(seeds, amount)
         tracks += t
         start_index += 5
 
