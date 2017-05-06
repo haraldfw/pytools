@@ -23,7 +23,7 @@ def main():
         amount = int(sys.argv[2])
 
     tracks = []
-    while tracks:
+    while True:
         seeds = get_playlist_files(5, start_index)
         t = get_seeded_tracks(seeds, amount)
         if not t:
