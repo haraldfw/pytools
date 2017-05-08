@@ -50,10 +50,10 @@ def parse_args():
     return args
 
 
-def help():
+def print_help():
     print('Gets recommendations from spotify based on tracks from playlist.\n\n'
-          'usage: python3 radioq.py <start_index> <amount>\n\n'
-          'Flags:\n'
+          'usage: python3 radioq.py [OPTION]...\n\n'
+          'Options:\n'
           '\t-l, --loop\n\t\tEnable looping. Enabling this will make the script go through the playlist and get '
           '<amount> recommended tracks for every chunk of 5 tracks. This is time-consuming, and might spam '
           'your queue.\n'
@@ -67,11 +67,11 @@ def main():
         args = parse_args()
     except ValueError:
         print('Something went wrong when parsing your args.\nFor help: python3')
-        help()
+        print_help()
         return
 
     if 'help' in args:
-        help()
+        print_help()
         return
 
     start_index = 0
