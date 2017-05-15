@@ -2,9 +2,10 @@
 __author__ = 'Harald Floor Wilhelmsen'
 
 import json
-import os
 import subprocess
 import urllib.request
+
+import os
 
 art_directory = "/home/infoskjerm/conkyscripts/art/"
 track_directory = "/home/infoskjerm/conkyscripts/tracks/"
