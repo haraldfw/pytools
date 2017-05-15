@@ -73,6 +73,13 @@ def get_avg_track_features(ids, spot=None):
     return average_features
 
 
+def get_top_tracks(spotify_uri, spotify=None):
+    if not spotify:
+        spotify = get_spotify()
+    response = spotify.artist_top_tracks(spotify_uri, 'NO')
+    return [track['uri'] for track in response['tracks']]
+
+
 if __name__ == '__main__':
     tracks = [
         'spotify:track:04nGzKOAcyzh9DEebAuMV7',
