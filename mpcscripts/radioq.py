@@ -1,3 +1,4 @@
+import signal
 import sys
 
 import requests
@@ -6,18 +7,21 @@ from mpclib import get_playlist_files
 from spottylib import get_seeded_tracks
 
 
-def radioq(start_index, amount):
+def radioq(start_index, amount, attrs):
     seeds = get_playlist_files(5, start_index)
-    return get_seeded_tracks(seeds, amount)
+    if not seeds:
+        print('No seeds found in mpc playlist. Exiting...')
+        sys.exit(signal.SIGINT)
+    return get_seeded_tracks(seeds, amount, attrs=attrs)
 
 
-def radioq_loop(start_index, amount):
+def radioq_loop(start_index, amount, attrs):
     tracks = []
     while True:
         seeds = get_playlist_files(5, start_index)
         if not seeds:
             break
-        t = get_seeded_tracks(seeds, amount)
+        t = get_seeded_tracks(seeds, amount, attrs=attrs)
         tracks += t
         start_index += 5
     return tracks
@@ -47,6 +51,8 @@ def parse_args():
             i += 1
         elif contains_either(val, ['-h', '--help']):
             args['help'] = True
+        elif contains_either(val, ['-n', '--no-attributes']):
+            args['no-attributes'] = True
     return args
 
 
@@ -58,8 +64,10 @@ def print_help():
           '<amount> recommended tracks for every chunk of 5 tracks. This is time-consuming, and might spam '
           'your queue.\n'
           '\t-s, --start-index\n\t\tSpecify where to start getting seed-tracks from the playlist. Default=0.\n'
-          '\t-amount, --amount\n\t\tSpecify amount of recommended tracks to get. Default=20 min=1 max=100.\n'
-          '\t-h, --help\n\t\tOutputs this information.\n')
+          '\t-a, --amount\n\t\tSpecify amount of recommended tracks to get. Default=20 min=1 max=100.\n'
+          '\t-h, --help\n\t\tOutputs this information.\n',
+          '\t-n, --no-attributes\n\t\tDisable getting audio features. This makes the script faster, but '
+          'the results will be worse.\n')
 
 
 def main():
@@ -82,11 +90,13 @@ def main():
     if 'amount' in args:
         amount = args['amount']
 
+    attrs = 'no-attributes' not in args
+
     try:
         if 'loop' in args:
-            tracks = radioq_loop(start_index, amount)
+            tracks = radioq_loop(start_index, amount, attrs)
         else:
-            tracks = radioq(start_index, amount)
+            tracks = radioq(start_index, amount, attrs)
     except requests.exceptions.HTTPError:
         print('Something went wrong when getting seeds. Check your command and try again. ')
         return
