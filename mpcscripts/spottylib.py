@@ -1,7 +1,7 @@
 import sys
+from builtins import round
 
 import spotipy
-from builtins import round
 from spotipy.oauth2 import SpotifyClientCredentials
 
 
@@ -36,7 +36,7 @@ def get_seeded_tracks(seed_tracks, limit=20, spotify=None, attrs=True):
         attributes = get_avg_track_features(seed_tracks, spotify)
         response = spotify.recommendations(
             seed_tracks=seed_tracks,
-            limit=limit, country='NO', **attributes)
+            limit=limit, country='NO', **{'target_' + k: v for k, v in attributes})
     else:
         response = spotify.recommendations(seed_tracks=seed_tracks, limit=limit, country='NO')
 
